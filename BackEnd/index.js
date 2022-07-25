@@ -33,8 +33,10 @@ app.get('/read', (req, res) => {
         connection, 
         (result) => {
             res.json(result);
+            console.log(result);
         }
     );
+    
 });
 
 
