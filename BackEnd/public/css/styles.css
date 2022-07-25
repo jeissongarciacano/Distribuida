@@ -1,0 +1,18 @@
+body{
+    margin: 5%;
+    font-family: sans-serif ;
+    background-image: linear-gradient( 95.2deg, #b6b6b6 26.8%, #e2d1c3 64% );
+    background-size: cover;
+    position: relative;
+    text-align: justify;
+}
+
+.card{
+    margin: 1%;
+    background-image: linear-gradient( 95.2deg, #e2d1c3 26.8%, #b6b6b6 64% );
+}
+
+h1{
+    text-align: center;
+}
+
