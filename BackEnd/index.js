@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();  
-const mysql = require('mysql'); 
+const mysql = require('mysql2'); 
 const port = 5000; 
 require('dotenv').config();
 const path = require('path');
@@ -24,31 +24,27 @@ connection.connect((err) => {
     console.log('connected to database');
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello');
+connection.connect(function(err){
+    if (err) throw err;
+    connection.query('SELECT * FROM products', function (err, result){
+        if(err) throw err;
+        console.log(result);
+        //puintodom(result);
+    });
 });
-
-app.get('/read', (req, res) => {
-    read(
-        connection, 
-        (result) => {
-            res.json(result);
-            console.log(result);
-        }
-    );
-    
-});
-
 
 app.listen(5000, () => {
     console.log('servidor en puerto 5000');
 });
 
-function read(connection, callback){
-    connection.query('SELECT * FROM products', function (err, result){
-        if(err) throw err;
-        callback(result);
-    });
+function puintodom(result){
+    const inputRef = useRef(null);
+    const element = inputRef.current;
+    var elem = document.getElementById('frame');
+    for (let i = 0 ; i < Object.keys(result).length; i++) {
+        var name = result[i].product_name;
+        var description = result[i].product_description;
+        var text = '<div class="card" ><h5 class="card-title">' + name + '</h5>' + '<p class="card-text">' + description + '</p></div>';
+        elem.appendChild(text);
+    }
 }
-
-module.exports = {read};
