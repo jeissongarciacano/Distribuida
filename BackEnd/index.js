@@ -6,8 +6,6 @@ require('dotenv').config();
 const path = require('path');
 app.use('/public', express.static('public'));
 
-const {read} = require('./operations');
-
 app.use(express.json());
 
 app.get('/', function(req, res){
@@ -44,3 +42,11 @@ app.listen(5000, () => {
     console.log('servidor en puerto 5000');
 });
 
+function read(connection, callback){
+    connection.query('SELECT * FROM products', function (err, result){
+        if(err) throw err;
+        callback(result);
+    });
+}
+
+module.exports = {read};
